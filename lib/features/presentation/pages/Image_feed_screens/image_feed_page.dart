@@ -38,7 +38,7 @@ class ImageFeedPage extends StatelessWidget {
                 return GridView.builder(
                   padding: const EdgeInsets.all(24),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // or 3 depending on width
+                    crossAxisCount: 2,
                     crossAxisSpacing: 24,
                     mainAxisSpacing: 24,
                   ),
