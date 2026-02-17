@@ -1,81 +1,77 @@
 # 📸 Image Feed App
 
-A Flutter application that allows users to pick images and display them in a responsive feed layout with dynamic card sizing based on image aspect ratio. The app supports Android, iOS, Web, and Desktop platforms.
+Image Feed App is a Flutter application that allows users to pick images and display them in a dynamic feed layout.  
+The app processes images using isolates for performance optimization, stores images locally using Base64 encoding, and automatically adjusts card heights based on image aspect ratios to support portrait, landscape, and square images.
+
+The project supports **Android, iOS, Web, and Desktop** platforms.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-- Pick images from device storage (File Picker for desktop support)
-- Store images locally using Base64 encoding
-- Background image processing using Flutter isolates (`compute`)
-- Dynamic feed layout with automatic card height adjustment
-- Proper handling of portrait, landscape, and square images
-- Responsive UI for mobile and desktop
-- Clean Architecture with Repository Pattern and BLoC state management
+- 📷 Pick multiple images using File Picker (desktop + mobile supported)
+- 🧵 Heavy image processing using Isolates (`compute`) to avoid UI blocking
+- 🖼️ Dynamic feed layout with auto card height based on aspect ratio
+- 🔄 Toggle between fixed and dynamic feed layout
+- 💾 Local storage using Base64 encoded images (as per assignment requirement)
+- ⚡ Smooth scrolling with performance optimizations
+- 🖥️ Desktop UI refactored for responsive layout
 
 ---
 
-## 🧠 Technical Highlights
+## 🏗️ Architecture
 
-- **Isolate-based Base64 encoding** to prevent UI thread blocking
-- **Aspect Ratio detection** using image decoding
-- **Local JSON storage** for offline persistence
-- **BLoC state management** for scalable architecture
-- Desktop-compatible file picking
+The project follows **Clean Architecture**:
+
+lib/
+├── core/
+├── features/
+│ ├── data/
+│ ├── domain/
+│ ├── presentation/
+└── main.dart
+
+
+### Layers
+- **Presentation** → UI + BLoC  
+- **Domain** → Entities + Use Cases  
+- **Data** → Repositories + Local Data Source  
+
+---
+
+## ⚙️ Technical Decisions
+
+- Base64 encoding is done in a background isolate using `compute()` to avoid blocking the main thread.
+- Image aspect ratio is calculated to render cards dynamically.
+- Local storage is implemented using JSON files (Hive recommended for production).
 
 > **Note:** Base64 storage is used as per assignment requirements. In production, file path or cached storage would be preferred for better performance and memory efficiency.
 
 ---
 
-## 📱 Supported Platforms
+## 🚀 Getting Started
 
-- Android
-- iOS
-- Web
-- Windows / macOS / Linux (Desktop)
+### Prerequisites
+- Flutter 3.x
+- Dart 3.x
+- Android Studio / VS Code
+- Flutter SDK added to PATH
 
 ---
 
-## 🛠️ How to Run
+### 1️⃣ Clone Repository
 
-### 1. Clone the repository
 ```bash
-git clone <your-repo-url>
-cd image_feed_app
-### ### ### ### ### ### ### ### ### 
-
-## ▶️ How to Run the App
-
-### ### ### ### ### ### ### ### ### 
-### 🔹 Prerequisites
-Make sure you have installed:
-
-- Flutter SDK (>= 3.x)
-- Dart SDK
-- Android Studio / VS Code
-- Android Emulator or physical device  
-  *(For desktop: Windows/macOS/Linux)*
-
-Check Flutter installation:
-```bash
-flutter doctor
-
-🔹 Step 1: Clone the Repository
-git clone <your-github-repo-link>
+git clone https://github.com/banitaparamanik/image_feed_app.git
 cd image_feed_app
 
-🔹 Step 2: Install Dependencies
+2️⃣ Install Dependencies
 flutter pub get
 
-🔹 Step 3: Run the Application
-Run on Mobile / Emulator:
+3️⃣ Run on Mobile
 flutter run
-
-Run on Desktop (Windows example):
+4️⃣ Run on Desktop
 flutter run -d windows
 
-Run on Web:
+5️⃣ Run on Web
 flutter run -d chrome
-
-
