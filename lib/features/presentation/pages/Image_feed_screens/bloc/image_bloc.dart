@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_feed_app/features/domain/entities/image_entity.dart';
 import 'package:image_feed_app/features/domain/repositories/image_feed_repository/image_repository.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'image_event.dart';
 part 'image_state.dart';
 
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   final ImageRepository repository;
-  final ImagePicker picker = ImagePicker();
 
   ImageBloc(this.repository) : super(const ImageState()) {
     on<PickImages>(_pickImages);
@@ -22,10 +21,17 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
   Future<void> _pickImages(PickImages event, Emitter<ImageState> emit) async {
     emit(state.copyWith(loading: true));
 
-    final files = await picker.pickMultiImage();
-    if (files.isNotEmpty) {
-      for (final file in files) {
-        await repository.uploadImage(File(file.path));
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image,
+    );
+
+    if (result != null && result.files.isNotEmpty) {
+      for (final picked in result.files) {
+        final path = picked.path;
+        if (path != null) {
+          await repository.uploadImage(File(path));
+        }
       }
     }
 

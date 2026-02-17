@@ -9,8 +9,12 @@ class FixedImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 0.7;
+    final maxHeight = 600.0;
+    final cardHeight = height > maxHeight ? maxHeight : height;
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: cardHeight,
       margin: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
